@@ -6,6 +6,7 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class ServiceProvider extends EventServiceProvider
 {
