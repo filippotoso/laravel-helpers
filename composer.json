@@ -1,0 +1,34 @@
+{
+    "name": "filippo-toso/laravel-helpers",
+    "description": "A couple of helpers for Laravel development",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Filippo Toso",
+            "email": "filippo.toso@creativepark.it"
+        }
+    ],
+    "require": {
+        "php": "^7.1.3",
+        "illuminate/support": "^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "FilippoToso\\LaravelHelpers\\": "src"
+        },
+        "files": [
+            "src/Helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "FilippoToso\\LaravelHelpers\\ServiceProvider"
+            ],
+            "aliases": {
+                "Breadcrumbs": "FilippoToso\\LaravelHelpers\\Facades\\Breadcrumbs",
+                "Gravatar": "FilippoToso\\LaravelHelpers\\Facades\\Gravatar"
+            }
+        }
+    }
+}
