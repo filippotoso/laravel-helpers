@@ -39,5 +39,10 @@ class Breadcrumbs
         return count($this->data) == 0;
     }
 
+    public function all()
+    {
+        return array_slice($this->data, 0, null, true);
+    }
+
 }
 
