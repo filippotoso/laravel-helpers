@@ -15,8 +15,8 @@ class Breadcrumbs
     public function add($url, $label = '')
     {
         if (is_array($url)) {
-            foreach ($data as $url => $label) {
-                $this->addCrumb($url, $label);
+            foreach ($url as $key => $value) {
+                $this->data[$key] = $value;
             }
         } else {
             $this->data[$url] = $label;
