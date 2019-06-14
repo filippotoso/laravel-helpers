@@ -75,7 +75,7 @@ class Field
 
     public function checked($default = false)
     {
-        $old = $this->old();
+        $old = $this->old($default);
 
         $checked = false;
 
