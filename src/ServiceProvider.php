@@ -3,8 +3,10 @@
 namespace FilippoToso\LaravelHelpers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -50,6 +52,11 @@ class ServiceProvider extends EventServiceProvider
             return $this->unique(function ($item) use ($property) {
                 return $item->$property;
             });
+        });
+
+        Collection::macro('pagination', function ($perPage = 15, $page = null, $options = []) {
+            $page = $page ? : (Paginator::resolveCurrentPage() ? : 1);
+            return new LengthAwarePaginator($this->forPage($page, $perPage), $this->count(), $perPage, $page, $options);
         });
 
         $this->loadViewsFrom(dirname(__DIR__) . '/resources/views', 'laravel-helpers');
