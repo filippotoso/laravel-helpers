@@ -23,6 +23,8 @@ This package includes:
 - field() helper and Field class to handle form inputs
 - Breadcrumbs class, facade and views to display breadcrumbs
 
+  Some traits to help with development.
+
 More to come! 
 
 ## Resources
