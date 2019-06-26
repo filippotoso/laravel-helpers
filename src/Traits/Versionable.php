@@ -27,5 +27,9 @@ trait Versionable
         return $query->whereNull($this->versionableField);
     }
 
+    public function isBeingEdited()
+    {
+        $versionableField = $this->versionableField;
+        return !is_null($this->$versionableField);
+    }
 }
-
