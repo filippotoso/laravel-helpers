@@ -2,7 +2,7 @@
 
 A couple of helpers for Laravel development
 
-## Requirements
+## Requirements 
 
 - PHP 7.1.3+
 - Laravel 5.5+
