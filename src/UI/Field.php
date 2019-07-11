@@ -19,6 +19,7 @@ class Field
         'value' => '',
         'placeholder' => '',
         'type' => 'text',
+        'description' => null,
 
         'values' => [],
 
