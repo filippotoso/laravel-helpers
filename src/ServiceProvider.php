@@ -5,6 +5,7 @@ namespace FilippoToso\LaravelHelpers;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -59,11 +60,92 @@ class ServiceProvider extends EventServiceProvider
             return new LengthAwarePaginator($this->forPage($page, $perPage), $this->count(), $perPage, $page, $options);
         });
 
+        $this->registerResponseMarco();
+
         $this->loadViewsFrom(dirname(__DIR__) . '/resources/views', 'laravel-helpers');
 
         $this->publishes([
             dirname(__DIR__) . '/resources/views' => resource_path('views/vendor/filippo-toso/laravel-helpers'),
         ], 'views');
+
+    }
+
+    protected function registerResponseMarco()
+    {
+
+        Response::macro('error', function ($code, $message, $errors = [], $status = 400) {
+            return Response::make([
+                'error' => [
+                    'code' => $code,
+                    'message' => $message,
+                    'errors' => $errors,
+                ],
+            ], $status);
+        });
+
+        Response::macro('unauthenticated', function () {
+            return Response::make([
+                'error' => [
+                    'code' => 401,
+                    'message' => 'Unauthenticated',
+                    'errors' => [],
+                ],
+            ], 401);
+        });
+
+        Response::macro('notFound', function () {
+            return Response::make([
+                'error' => [
+                    'code' => 404,
+                    'message' => 'Resource not found',
+                    'errors' => [],
+                ],
+            ], 404);
+        });
+
+        Response::macro('success', function ($status = 200) {
+            return Response::make([
+                'data' => [
+                    'status' => 'success',
+                ],
+            ], $status);
+        });
+
+        Response::macro('created', function ($id) {
+            return Response::make([
+                'data' => [
+                    'id' => $id,
+                ],
+            ], 201);
+        });
+
+        Response::macro('updated', function () {
+            return Response::make('', 204);
+        });
+
+        Response::macro('deleted', function () {
+            return Response::make('', 204);
+        });
+
+        Response::macro('forbidden', function ($message, $errors = []) {
+            return Response::make([
+                'error' => [
+                    'code' => 403,
+                    'message' => $message,
+                    'errors' => $errors,
+                ],
+            ], 403);
+        });
+
+        Response::macro('validation', function ($errors = []) {
+            return Response::make([
+                'error' => [
+                    'code' => 100,
+                    'message' => 'Failed validation!',
+                    'errors' => $errors,
+                ],
+            ], 422);
+        });
 
     }
 
