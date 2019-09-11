@@ -123,6 +123,10 @@ class ServiceProvider extends EventServiceProvider
             return Response::make('', 204);
         });
 
+        Response::macro('nothing', function () {
+            return Response::make('', 204);
+        });
+
         Response::macro('deleted', function () {
             return Response::make('', 204);
         });
