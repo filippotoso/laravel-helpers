@@ -6,10 +6,9 @@ use Exception;
 
 trait Labelable
 {
-
-    public function __get($name)
+    public function getAttribute($key)
     {
-        if (preg_match('#^(.*)_label$#si', $name, $matches)) {
+        if (preg_match('#^(.*)_label$#si', $key, $matches)) {
             $field = $matches[1];
             if (isset($this->labels[$field]) && array_key_exists($field, $this->attributes)) {
                 $label = $this->attributes[$field];
@@ -20,7 +19,7 @@ trait Labelable
             }
         }
 
-        return parent::__get($name);
+        return parent::getAttribute($key);
     }
 
 }
