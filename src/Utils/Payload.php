@@ -19,10 +19,10 @@ class Payload
             $this->data[$key] = $value;
         }
 
-        $this->properties = array_merge($this->properties, array_key($this->defaults));
+        $this->properties = array_merge($this->properties, array_keys($this->defaults));
 
-        foreach ($properties as $key) {
-            if (\array_key_exists($payload, $key)) {
+        foreach ($this->properties as $key) {
+            if (array_key_exists($key, $payload)) {
                 $this->data[$key] = $payload[$key];
             }
         }
