@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Components\Ingestion\Payloads\Exceptions;
+namespace FilippoToso\LaravelHelpers\Utils\Exceptions;
 
 use Exception;
 
