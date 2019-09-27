@@ -43,6 +43,14 @@ class ServiceProvider extends EventServiceProvider
                 ->count() < 1;
         });
 
+        Validator::extend('extensions', function ($attribute, $value, $parameters, $validator) {
+            if (is_a($value, UploadedFile::class)) {
+                $extension = strtolower(pathinfo($value->getClientOriginalName(), PATHINFO_EXTENSION));
+                return in_array($extension, $parameters);
+            }
+            return false;
+        });
+
         Collection::macro('containsObject', function ($property, $value, $strict = false) {
             return $this->contains(function ($item) use ($property, $value, $strict) {
                 return ($strict) ? $item->$property === $value : $item->$property == $value;
