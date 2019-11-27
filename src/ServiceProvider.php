@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class ServiceProvider extends EventServiceProvider
 {
@@ -38,9 +39,16 @@ class ServiceProvider extends EventServiceProvider
         });
 
         Validator::extend('not_exists', function ($attribute, $value, $parameters) {
-            return DB::table($parameters[0])
-                ->where($parameters[1], '=', $value)
-                ->count() < 1;
+            if (Schema::hasColumn($parameters[0], 'deleted_at')) {
+                return DB::table($parameters[0])
+                    ->where($parameters[1], '=', $value)
+                    ->whereNull('deleted_at')
+                    ->count() < 1;
+            } else {
+                return DB::table($parameters[0])
+                    ->where($parameters[1], '=', $value)
+                    ->count() < 1;
+            }
         });
 
         Validator::extend('extensions', function ($attribute, $value, $parameters, $validator) {
