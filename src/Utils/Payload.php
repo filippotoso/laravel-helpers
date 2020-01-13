@@ -49,4 +49,8 @@ class Payload
         return new static($payload);
     }
 
+    public function toArray()
+    {
+        return $this->data;
+    }
 }
