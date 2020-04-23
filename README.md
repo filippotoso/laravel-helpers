@@ -29,8 +29,8 @@ More to come!
 
 ## Resources
 
-You can publish the views with the following command:
+You can publish the views and config with the following command:
 
 ```
-php artisan vendor:publish --tag=views --provider="FilippoToso\LaravelHelpers\ServiceProvider"
+php artisan vendor:publish --provider="FilippoToso\LaravelHelpers\ServiceProvider"
 ```

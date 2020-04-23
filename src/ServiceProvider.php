@@ -86,7 +86,7 @@ class ServiceProvider extends EventServiceProvider
 
         $this->publishes([
             dirname(__DIR__) . '/resources/config/mail_exceptions.php' => config_path('mail_exceptions.php'),
-        ]);
+        ], 'config');
     }
 
     protected function registerResponseMarco()
