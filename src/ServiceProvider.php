@@ -72,7 +72,7 @@ class ServiceProvider extends EventServiceProvider
         });
 
         Collection::macro('pagination', function ($perPage = 15, $page = null, $options = []) {
-            $page = $page ? : (Paginator::resolveCurrentPage() ? : 1);
+            $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
             return new LengthAwarePaginator($this->forPage($page, $perPage), $this->count(), $perPage, $page, $options);
         });
 
@@ -84,6 +84,9 @@ class ServiceProvider extends EventServiceProvider
             dirname(__DIR__) . '/resources/views' => resource_path('views/vendor/filippo-toso/laravel-helpers'),
         ], 'views');
 
+        $this->publishes([
+            dirname(__DIR__) . '/resources/config/mail_exceptions.php' => config_path('mail_exceptions.php'),
+        ]);
     }
 
     protected function registerResponseMarco()
@@ -166,7 +169,6 @@ class ServiceProvider extends EventServiceProvider
                 ],
             ], 422);
         });
-
     }
 
     /**
@@ -176,7 +178,9 @@ class ServiceProvider extends EventServiceProvider
      */
     public function register()
     {
-
+        $this->mergeConfigFrom(
+            dirname(__DIR__) . '/resources/config/mail_exceptions.php',
+            'mail_exceptions'
+        );
     }
-
 }
