@@ -17,10 +17,13 @@ class ReportException
     public static function run(Throwable $exception)
     {
         $exclude = config('mail_exceptions.exclude');
-        if (!in_array($exception, $exclude)) {
+
+        $exceptionClass = get_class($exception);
+
+        if (!in_array($exceptionClass, $exclude)) {
             $key = 'filippotoso.laravelhelpers.mailexceptions.' . get_class($exception);
             if (!Cache::has($key)) {
-                // Cache::put($key, true, config('mail_exceptions.throttle'));
+                Cache::put($key, true, config('mail_exceptions.throttle'));
 
                 if (!$exception instanceof Exception) {
                     $exception = new FatalThrowableError($exception);
