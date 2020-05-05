@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Resources;
+namespace FilippoToso\LaravelHelpers\Resources;
 
-use Illuminate\Http\Resources\Json\Resource as BaseResource;
+use Illuminate\Http\Resources\Json\JsonResource as BaseResource;
 use Illuminate\Database\Eloquent\Collection;
 
 class Resource extends BaseResource
@@ -22,5 +22,4 @@ class Resource extends BaseResource
 
         return $default;
     }
-
 }
