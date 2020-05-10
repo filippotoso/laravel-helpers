@@ -17,6 +17,7 @@ class Field
         'label' => '',
         'name' => '',
         'value' => '',
+        'checked' => null,
         'placeholder' => '',
         'type' => 'text',
         'description' => null,
@@ -80,7 +81,9 @@ class Field
 
         $checked = false;
 
-        if (is_array($old)) {
+        if (!is_null($this->checked)) {
+            $checked = $this->checked;
+        } elseif (is_array($old)) {
             $checked = in_array($this->value, $old);
         } elseif (is_bool($this->value)) {
             $checked = $this->value;
