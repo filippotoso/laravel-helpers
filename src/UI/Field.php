@@ -13,6 +13,7 @@ class Field
         'required' => false,
         'disabled' => false,
         'readonly' => false,
+        'multiple' => false,
         'title' => '',
         'label' => '',
         'name' => '',
@@ -98,8 +99,8 @@ class Field
 
     public function selected($value)
     {
-        $old = $this->old();
-        return ($value == $old) ? 'selected' : '';
+        $old = collect($this->old());
+        return ($old->contains($value)) ? 'selected' : '';
     }
 
     public function required()
@@ -110,6 +111,11 @@ class Field
     public function readonly()
     {
         return $this->readonly ? 'readonly' : '';
+    }
+
+    public function multiple()
+    {
+        return $this->multiple ? 'multiple' : '';
     }
 
     public function disabled()
