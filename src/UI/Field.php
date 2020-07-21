@@ -100,7 +100,7 @@ class Field
     public function selected($value)
     {
         $old = collect($this->old());
-        return ($old->contains($value)) ? 'selected' : '';
+        return ($old->has($value)) ? 'selected' : '';
     }
 
     public function required()
