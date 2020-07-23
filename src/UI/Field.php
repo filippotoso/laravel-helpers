@@ -99,8 +99,14 @@ class Field
 
     public function selected($value)
     {
-        $old = collect($this->old());
-        return ($old->has($value)) ? 'selected' : '';
+        $old = $this->old();
+
+        if (is_array($old)) {
+            $old = collect($this->old());
+            return ($old->has($value)) ? 'selected' : '';
+        }
+
+        return ($old == $value) ? 'selected' : '';
     }
 
     public function required()
