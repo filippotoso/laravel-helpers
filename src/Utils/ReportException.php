@@ -6,9 +6,8 @@ use FilippoToso\LaravelHelpers\Mails\ExceptionReported;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
-use Symfony\Component\Debug\Exception\FlattenException;
-use Symfony\Component\Debug\Exception\FatalThrowableError;
-use Symfony\Component\Debug\ExceptionHandler as SymfonyExceptionHandler;
+use Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer;
+use Symfony\Component\ErrorHandler\Exception\FlattenException;
 use Exception;
 use Throwable;
 
@@ -25,10 +24,6 @@ class ReportException
             if (!Cache::has($key)) {
                 Cache::put($key, true, config('mail_exceptions.throttle'));
 
-                if (!$exception instanceof Exception) {
-                    $exception = new FatalThrowableError($exception);
-                }
-
                 try {
 
                     $request = request();
@@ -40,9 +35,9 @@ class ReportException
                         'content' => $request->getContent(),
                     ])->render();
 
-                    $flatException = FlattenException::create($exception);
-                    $handler = new SymfonyExceptionHandler();
-                    $exceptionHtml = $handler->getHtml($flatException);
+                    $flatException = ($exception instanceof Exception) ? FlattenException::create($exception) : FlattenException::createFromThrowable($exception);
+                    $handler = new HtmlErrorRenderer();
+                    $exceptionHtml = $handler->getBody($flatException);
                     $html = preg_replace('#(<body[^>]*>)#si', '$1' . $html, $exceptionHtml);
                 } catch (Exception $e) {
                     $html = (string) $e;
