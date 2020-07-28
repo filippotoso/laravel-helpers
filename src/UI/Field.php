@@ -4,6 +4,7 @@ namespace FilippoToso\LaravelHelpers\UI;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\MessageBag;
+use Traversable;
 
 class Field
 {
@@ -101,7 +102,7 @@ class Field
     {
         $old = $this->old();
 
-        if (is_array($old)) {
+        if ($old instanceof Traversable) {
             $old = collect($this->old());
             return ($old->has($value)) ? 'selected' : '';
         }
