@@ -36,7 +36,7 @@ class ReportException
                     ])->render();
 
                     $flatException = ($exception instanceof Exception) ? FlattenException::create($exception) : FlattenException::createFromThrowable($exception);
-                    $handler = new HtmlErrorRenderer();
+                    $handler = new HtmlErrorRenderer(true);
                     $exceptionHtml = $handler->getBody($flatException);
                     $html = preg_replace('#(<body[^>]*>)#si', '$1' . $html, $exceptionHtml);
                 } catch (Exception $e) {
