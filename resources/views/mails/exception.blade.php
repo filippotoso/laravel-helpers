@@ -10,5 +10,6 @@
         @endforeach
     @endforeach
     <br>
+    {!! $html !!}
 </p>
 

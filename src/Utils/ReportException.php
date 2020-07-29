@@ -25,6 +25,9 @@ class ReportException
                 Cache::put($key, true, config('mail_exceptions.throttle'));
 
                 try {
+                    $flatException = ($exception instanceof Exception) ? FlattenException::create($exception) : FlattenException::createFromThrowable($exception);
+                    $handler = new HtmlErrorRenderer(true);
+                    $exceptionHtml = $handler->getBody($flatException);
 
                     $request = request();
 
@@ -34,12 +37,8 @@ class ReportException
                         'url' =>  $request->fullUrl(),
                         'content' => $request->getContent(),
                         'headers' => $request->headers->all(),
+                        'html' => $exceptionHtml,
                     ])->render();
-
-                    $flatException = ($exception instanceof Exception) ? FlattenException::create($exception) : FlattenException::createFromThrowable($exception);
-                    $handler = new HtmlErrorRenderer(true);
-                    $exceptionHtml = $handler->getBody($flatException);
-                    $html = preg_replace('#(<body[^>]*>)#si', '$1' . $html, $exceptionHtml);
                 } catch (Exception $e) {
                     $html = (string) $e;
                 }
