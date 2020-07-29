@@ -33,6 +33,7 @@ class ReportException
                         'method' => $request->method(),
                         'url' =>  $request->fullUrl(),
                         'content' => $request->getContent(),
+                        'headers' => $request->headers->all(),
                     ])->render();
 
                     $flatException = ($exception instanceof Exception) ? FlattenException::create($exception) : FlattenException::createFromThrowable($exception);

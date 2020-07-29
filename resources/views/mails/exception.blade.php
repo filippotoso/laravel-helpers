@@ -3,5 +3,12 @@
     <b>Method:</b> {{ $method }}<br>
     <b>Url:</b> {{ $url }}<br>
     <b>Content:</b> {{ $content }}<br>
+    <b>Headers:</b>
+    @foreach($headers as $header => $items)
+        @foreach($items as $item)
+            {{ $header }}: {{ $item}}<br>
+        @endforeach
+    @endforeach
+    <br>
 </p>
 
