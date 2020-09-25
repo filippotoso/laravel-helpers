@@ -6,6 +6,7 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -74,6 +75,10 @@ class ServiceProvider extends EventServiceProvider
         Collection::macro('pagination', function ($perPage = 15, $page = null, $options = []) {
             $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
             return new LengthAwarePaginator($this->forPage($page, $perPage), $this->count(), $perPage, $page, $options);
+        });
+
+        Request::macro('hasValidFile', function ($field) {
+            return $this->hasFile($field) && $this->file($field)->isValid();
         });
 
         $this->registerResponseMarco();
