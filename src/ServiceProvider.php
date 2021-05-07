@@ -3,6 +3,7 @@
 namespace FilippoToso\LaravelHelpers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
@@ -23,7 +24,6 @@ class ServiceProvider extends EventServiceProvider
      */
     public function boot()
     {
-
         parent::boot();
 
         // @set('variable', $value)
