@@ -60,6 +60,12 @@ class ServiceProvider extends EventServiceProvider
             return false;
         });
 
+        Validator::extend('float', function ($attribute, $value, $parameters, $validator) {
+            $value = str_replace(config('app.decimals_separator'), '.', $value);
+            $value = preg_replace('#\.(?=.*\.)#', '', $value);
+            return is_numeric($value);
+        });
+
         Collection::macro('containsObject', function ($property, $value, $strict = false) {
             return $this->contains(function ($item) use ($property, $value, $strict) {
                 return ($strict) ? $item->$property === $value : $item->$property == $value;
