@@ -4,19 +4,14 @@ namespace FilippoToso\LaravelHelpers\Utils;
 
 class Language
 {
-    function identify($validLanguages, $default = false, $acceptLanguage = null)
+    public static function identify($validLanguages, $default = false, $acceptLanguage = null)
     {
         $validLanguages = is_array($validLanguages) ? array_values($validLanguages) : [$validLanguages];
         $acceptLanguage = $acceptLanguage ?? ($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? null);
 
         $languages = array();
 
-        $httpLanguages = preg_split(
-            '/q=([\d\.]*)/',
-            $acceptLanguage,
-            -1,
-            PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE
-        );
+        $httpLanguages = preg_split('/q=([\d\.]*)/', $acceptLanguage, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 
         $key = 0;
         foreach (array_reverse($httpLanguages) as $value) {
