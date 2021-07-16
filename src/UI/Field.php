@@ -102,7 +102,7 @@ class Field
     {
         $old = $this->old();
 
-        if ($old instanceof Traversable) {
+        if (is_array($old) || $old instanceof Traversable) {
             $old = collect($this->old());
             return ($old->has($value)) ? 'selected' : '';
         }
