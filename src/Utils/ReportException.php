@@ -31,14 +31,29 @@ class ReportException
 
                     $request = request();
 
-                    $html = View::make('laravel-helpers::mails.exception', [
+                    $payload = [
                         'message' => $exception->getMessage(),
                         'method' => $request->method(),
                         'url' =>  $request->fullUrl(),
                         'content' => $request->getContent(),
                         'headers' => $request->headers->all(),
                         'html' => $exceptionHtml,
-                    ])->render();
+                    ];
+
+                    if (view()->exists('laravel-helpers::mails.exception')) {
+                        $html = View::make('laravel-helpers::mails.exception', $payload)->render();
+                    } else {
+                        $html = <<<HTML
+<h1>{$payload['message']}</h1>
+<p>
+    <b>Method:</b> {$payload['method']}<br>
+    <b>Url:</b> {$payload['url']}<br>
+    <b>Content:</b> {$payload['content']}<br>
+    <br>
+    {$payload['html']}
+</p>                      
+HTML;
+                    }
                 } catch (Exception $e) {
                     $html = (string) $e;
                 }
