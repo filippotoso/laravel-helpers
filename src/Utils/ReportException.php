@@ -31,7 +31,7 @@ class ReportException
 
                     $request = request();
 
-                    $html = View::make('laravel-helpers::mails.exception', [
+                    $html = View::make('filippo-toso-laravel-helpers::mails.exception', [
                         'message' => $exception->getMessage(),
                         'method' => $request->method(),
                         'url' =>  $request->fullUrl(),
