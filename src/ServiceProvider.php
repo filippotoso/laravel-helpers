@@ -89,7 +89,7 @@ class ServiceProvider extends EventServiceProvider
 
         $this->registerResponseMarco();
 
-        $this->loadViewsFrom(dirname(__DIR__) . '/resources/views', 'filippo-toso-laravel-helpers');
+        $this->loadViewsFrom(dirname(__DIR__) . '/resources/views', 'laravel-helpers');
 
         $this->publishes([
             dirname(__DIR__) . '/resources/views' => resource_path('views/vendor/filippo-toso/laravel-helpers'),
