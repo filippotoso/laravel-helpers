@@ -98,13 +98,18 @@ class Field
         return $checked ? 'checked' : '';
     }
 
-    public function selected($value)
+    public function selected($value, $key = true)
     {
         $old = $this->old();
 
         if (is_array($old) || $old instanceof Traversable) {
             $old = collect($this->old());
-            return ($old->has($value)) ? 'selected' : '';
+
+            if ($key) {
+                return ($old->has($value)) ? 'selected' : '';
+            }
+
+            return ($old->contains($value)) ? 'selected' : '';
         }
 
         return ($old == $value) ? 'selected' : '';
