@@ -123,6 +123,16 @@ class ServiceProvider extends EventServiceProvider
             ], 401);
         });
 
+        Response::macro('unauthorized', function () {
+            return Response::make([
+                'error' => [
+                    'code' => 401,
+                    'message' => 'Unauthorized',
+                    'errors' => [],
+                ],
+            ], 401);
+        });
+
         Response::macro('notFound', function () {
             return Response::make([
                 'error' => [
