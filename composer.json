@@ -2,14 +2,16 @@
     "name": "filippo-toso/laravel-helpers",
     "description": "A couple of helpers for Laravel development",
     "license": "MIT",
-    "authors": [{
-        "name": "Filippo Toso",
-        "email": "filippo.toso@creativepark.it"
-    }],
+    "authors": [
+        {
+            "name": "Filippo Toso",
+            "email": "filippo.toso@creativepark.it"
+        }
+    ],
     "require": {
-        "php": "^7.0 || ^8.0 || ^9.0",
+        "php": "^7.0 || ^8.0 || ^9.0 || ^10.0",
         "illuminate/support": ">=5.5",
-        "laravel/helpers": "^1.1",
+        "laravel/helpers": ">=1.1",
         "symfony/error-handler": ">=5.0"
     },
     "autoload": {
