@@ -50,9 +50,7 @@ class AppendBackendParams
 
             $url = URI::make($response->getTargetUrl());
 
-            foreach ($params as $name => $value) {
-                $url->set($name, $value);
-            }
+            $url->params(array_merge($params, $url->params()));
 
             $response->setTargetUrl($url->url());
         }
