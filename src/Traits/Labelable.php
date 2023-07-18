@@ -10,8 +10,8 @@ trait Labelable
     {
         if (preg_match('#^(.*)_label$#si', $key, $matches)) {
             $field = $matches[1];
-            if (isset($this->labels[$field]) && array_key_exists($field, $this->attributes)) {
-                $label = $this->attributes[$field];
+            if (isset($this->labels[$field]) && (array_key_exists($field, $this->attributes) || in_array($field, $this->appends))) {
+                $label = $this->$field;
                 if (isset($this->labels[$field][$label])) {
                     return $this->labels[$field][$label];
                 }
@@ -21,5 +21,4 @@ trait Labelable
 
         return parent::getAttribute($key);
     }
-
 }
