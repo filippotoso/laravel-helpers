@@ -26,6 +26,8 @@ class Field
 
         'values' => [],
 
+        'wire' => [],
+
         'class' => '',
         'icon' => '',
         'rows' => null,
@@ -50,6 +52,17 @@ class Field
     public function name()
     {
         return trim(str_replace(['[', ']'], ['.', ''], $this->name), ' .');
+    }
+
+    public function wire()
+    {
+        $result = '';
+
+        foreach ($this->wire as $key => $value) {
+            $result .= sprintf('wire:%s="%s"', $key, $value);
+        }
+
+        return $result;
     }
 
     public function old($value = null)
