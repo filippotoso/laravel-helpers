@@ -15,6 +15,7 @@ class Field
         'disabled' => false,
         'readonly' => false,
         'multiple' => false,
+        'raw' => false,
         'title' => '',
         'label' => '',
         'name' => '',
